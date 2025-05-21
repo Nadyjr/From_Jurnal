@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cek Data Laporan</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f6f9;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+    }
+
+    th {
+      background: #218838;
+      color: white;
+      position: sticky;
+      top: 0;
+    }
+
+    @media (max-width: 600px) {
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      td {
+        padding: 10px;
+        border-bottom: none;
+        border-top: 1px solid #ddd;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h2>Data Laporan RBM Algebra</h2>
+  <table id="dataTable">
+    <thead></thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const sheetUrl = 'https://script.google.com/macros/s/AKfycbz9ZevKFdFBW9Lsoyl9YvsZBTQnKhh7HZp6eF0wbe0rmbNxxAd0zRQx9VfQsAKLRr8Z/exec'; // Sesuaikan jika kamu punya endpoint khusus untuk GET
+
+    fetch(sheetUrl)
+      .then(res => res.json())
+      .then(data => {
+        const thead = document.querySelector('#dataTable thead');
+        const tbody = document.querySelector('#dataTable tbody');
+
+        if (data.length > 0) {
+          // Header
+          const headers = Object.keys(data[0]);
+          const headRow = document.createElement('tr');
+          headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header.replace(/_/g, ' ').toUpperCase();
+            headRow.appendChild(th);
+          });
+          thead.appendChild(headRow);
+
+          // Body
+          data.forEach(row => {
+            const tr = document.createElement('tr');
+            headers.forEach(header => {
+              const td = document.createElement('td');
+              td.textContent = row[header];
+              tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+          });
+        } else {
+          tbody.innerHTML = "<tr><td colspan='100%'>Tidak ada data.</td></tr>";
+        }
+      })
+      .catch(err => {
+        alert("Gagal mengambil data: " + err.message);
+      });
+  </script>
+</body>
+</html>

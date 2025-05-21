@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form Laporan Bimbel 3D</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #e0e5ec;
+      margin: 0;
+      padding: 30px;
+    }
+
+    .form-container {
+  max-width: 600px;
+  margin: auto;
+  background: #e0e5ec;
+  padding: 30px;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 10px 10px 30px #bebebe, -10px -10px 30px #ffffff;
+
+
+}
+
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-header img {
+      max-height: 60px;
+      margin: 0 auto 10px;
+      display: block;
+    }
+
+    .form-header h2 {
+      margin: 0;
+      color: #333;
+    }
+
+    .form-section {
+      background: #e0e5ec;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 16px;
+      box-shadow: 5px 5px 12px #90cdf4, -5px -5px 12px #ebf8ff;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    input, select, textarea {
+      width: 96%;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: block;
+      border: none;
+      border-radius: 20px;
+      font-size: 14px;
+      background: #e0e5ec;
+      box-shadow: inset 3px 3px 6px #c5c5c5, inset -3px -3px 6px #fff;
+      appearance: none;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+  button {
+  width: auto;
+  min-width: 180px;
+  max-width: 100%;
+  padding: 12px 30px;
+  font-size: 15px;
+  font-weight: 600;
+  display: block;
+  margin: 0 auto;
+  color: #fff;
+  background: linear-gradient(135deg, #005eff, #005eff);
+  border: none;
+  border-radius: 999px; /* ini bikin bulat penuh */
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+}
+
+button:hover {
+  background: linear-gradient(135deg, #003366, #002244);
+  box-shadow: 2px 2px 12px rgba(0,0,0,0.25);
+}
+
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+
+    .choices__inner {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      height: 46px;
+      padding: 15px 5px !important;
+      font-size: 16px;
+      border-radius: 20px !important;
+      background: #e0e5ec !important;
+      box-shadow: inset 3px 3px 6px #c5c5c5, inset -3px -3px 6px #fff !important;
+      border: none !important;
+      box-sizing: border-box;
+    }
+
+    .choices__placeholder {
+      opacity: 0.6;
+      font-style: italic;
+      font-size: 14px;
+    }
+
+    .choices__input--cloned {
+      height: 34px !important;
+      padding-left: 32px !important;
+      border-radius: 20px !important;
+      background-color: rgba(224,229,236,0.7) !important;
+      box-shadow: inset 3px 3px 6px #c5c5c5, inset -3px -3px 6px #fff !important;
+      background-image: url("data:image/svg+xml;utf8,<svg fill='gray' viewBox='0 0 24 24' width='16' height='16' xmlns='http://www.w3.org/2000/svg'><path d='M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5C16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: 10px center;
+      background-size: 16px;
+      border: none !important;
+    }
+
+   .choices__list--dropdown,
+.choices__list[role="listbox"] {
+  border-radius: 20px !important; /* atau 30px agar lebih lembut */
+  overflow: hidden !important;
+  background: rgba(224,229,236,0.85) !important;
+  box-shadow: 6px 6px 12px #bebebe, -6px -6px 12px #ffffff;
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+}
+
+
+    .choices[data-type*="select-one"]::after {
+      content: '';
+      position: absolute;
+      top: 60%;
+      right: 18px;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #666;
+      pointer-events: none;
+    }
+  
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+      .form-container {
+        padding: 20px;
+        box-shadow: none;
+      }
+      input, select, textarea, button {
+        font-size: 16px !important;
+      }
+      .form-header h2 {
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-header img {
+        max-height: 50px;
+      }
+      input, select, textarea {
+        padding: 10px 14px;
+        font-size: 14px;
+      }
+      button {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+.check-box {
+  display: block;
+  text-align: center;
+  background: #e0e5ec;
+  padding: 12px 30px;
+  border-radius: 999px; /* bulat sempurna */
+  margin-top: 20px;
+  font-weight: 600;
+  color: #218838;
+  text-decoration: none;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 5px 5px 12px #bebebe, -5px -5px 12px #ffffff;
+  transition: transform 0.2s;
+}
+
+.check-box:hover {
+  transform: translateY(-1px);
+}
+.check-box a {
+  text-decoration: none;
+  color: #218838;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+}
+
+.check-box img {
+  width: 24px;
+  height: 24px;
+}
+
+</style>
+</head>
+<body>
+  <div class="form-container">
+    <div class="form-header">
+      <img src="file:///C:/Users/nadir/Downloads/ChatGPT%20Image%20May%2022,%202025,%2003_37_22%20AM.png" alt="RBM Algebra Logo" style="max-height: 200px;" />
+
+      <h2>Jurnal Harian Tutor RBM Algebra - Mei 2025</h2>
+    </div>
+
+    <form id="laporanForm">
+      <div class="form-section">
+        <label>Nama Siswa</label>
+        <select name="nama_siswa" id="namaSiswaSelect" required>
+          <option value="">-- Masukan nama siswa --</option>
+        </select>
+      </div>
+
+      <div class="form-section">
+        <label>Mata Pelajaran</label>
+        <select name="mata_pelajaran" id="mataPelajaranSelect" required>
+          <option value="">-- Pilih mata pelajaran --</option>
+        </select>
+      </div>
+
+      <div class="form-section">
+        <label>Hari</label>
+        <select name="hari" required>
+          <option value="">-- Les Pada Hari --</option>
+          <option>Senin</option>
+          <option>Selasa</option>
+          <option>Rabu</option>
+          <option>Kamis</option>
+          <option>Jumat</option>
+          <option>Sabtu</option>
+          <option>Minggu</option>
+        </select>
+      </div>
+
+      <div class="form-section">
+        <label>Tanggal</label>
+        <input type="date" name="tanggal" required />
+      </div>
+
+      <div class="form-section">
+  <label>Waktu (DARI JAM BERAPA SAMPAI JAM BERAPA)</label>
+  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <input type="time" name="waktu_dari_jam" required style="flex: 1;" placeholder="Dari Jam" />
+    <input type="time" name="waktu_sampai_jam" required style="flex: 1;" placeholder="Sampai Jam" />
+  </div>
+</div>
+
+
+      <div class="form-section">
+        <label>Materi</label>
+        <input type="text" name="materi" required />
+      </div>
+
+      <div class="form-section">
+        <label>Laporan Perkembangan</label>
+        <textarea name="laporan_perkembangan" rows="3" required></textarea>
+      </div>
+
+      <div class="form-section">
+        <label>Nama Tutor</label>
+        <select name="nama_tutor" id="namaTutorSelect" required>
+          <option value="">-- Masukan nama --</option>
+        </select>
+      </div>
+
+      <div class="form-section">
+        <label>Fee</label>
+        <input type="number" name="fee" required />
+      </div>
+
+      <div class="form-section">
+        <label>PIC</label>
+        <input type="text" name="pic" required />
+      </div>
+
+      <div class="form-section">
+        <label>Admin</label>
+        <input type="text" name="admin" required />
+      </div>
+
+     <button type="submit" id="submitBtn">Kirim Laporan</button>
+     <div class="check-box">
+  <a href="cek-data.html" target="_blank">
+    <span>Cek data yang telah dimasukkan</span>
+  </a>
+</div>
+
+    </form>
+  </div>
+
+  <script src="nama-siswa.js"></script>
+  <script src="nama-tutor.js"></script>
+  <script src="mata-pelajaran.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+ <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Choices('#namaSiswaSelect', { searchEnabled: true, itemSelectText: '' });
+    new Choices('#namaTutorSelect', { searchEnabled: true, itemSelectText: '' });
+    new Choices('#mataPelajaranSelect', { searchEnabled: true, itemSelectText: '' });
+  });
+
+  document.getElementById('laporanForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const form = e.target;
+    const data = Object.fromEntries(new FormData(form));
+
+    const dari = form.waktu_dari_jam.value;
+    const sampai = form.waktu_sampai_jam.value;
+    if (sampai <= dari) {
+      alert("Jam selesai harus lebih besar dari jam mulai.");
+      return;
+    }
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = "Mengirim...";
+
+    fetch('https://script.google.com/macros/s/AKfycbz9ZevKFdFBW9Lsoyl9YvsZBTQnKhh7HZp6eF0wbe0rmbNxxAd0zRQx9VfQsAKLRr8Z/exec', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
+    })
+      .then(res => res.text())
+      .then(response => {
+        alert('Laporan berhasil dikirim!');
+        form.reset();
+      })
+      .catch(err => alert('Terjadi kesalahan: ' + err.message))
+      .finally(() => {
+        btn.disabled = false;
+        btn.innerHTML = "Kirim Laporan";
+      });
+  });
+</script>
+</body>
+</html>
